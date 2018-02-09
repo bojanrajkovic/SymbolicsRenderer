@@ -1,0 +1,63 @@
+---
+uti: com.xamarin.workbook
+id: 6128b17c-b508-462e-91f5-4b2fc37b8e55
+title: Taylor Series
+platforms:
+- Console
+packages:
+- id: CodeRinseRepeat.SymbolicsRenderer
+  version: 0.2.0
+- id: MathNet.Symbolics
+  version: 0.18.1
+---
+
+# Taylor Series and symbolic algebra
+
+In mathematics, Taylor series are used to represent a function as an infinite sum of terms calculated from the values of the function’s derivatives at a single point. Using Taylor series, we can approximate the value of functions by using a finite number of terms in the series! We’ll use the `MathNet.Symbolics` library to derive some Taylor series and then also evaluate them to see how they compare to the real function! First, we’ll reference `MathNet.Symbolics` and add some handy using statements to make our work easier.
+
+```csharp
+#r "MathNet.Symbolics"
+
+using MathNet.Symbolics;
+using static MathNet.Symbolics.Operators;
+using static MathNet.Symbolics.Expression;
+```
+
+Next, we can define a function that takes an `Expression` and does the work of generating a Taylor series from it. We’ll need a number of terms `terms`, a `symbol` that represents a function variable, a point `point` for the function, and an expression `function` that represents the function itself!
+
+```csharp
+Expression Taylor(int terms, Expression symbol, Expression point, Expression function)
+{
+    int factorial = 1;
+    Expression series = Zero, derivative = function;
+
+    for (var i = 0; i < terms; i++) {
+        var subs = Structure.Substitute(symbol, point, derivative);
+        derivative = Calculus.Differentiate(symbol, derivative);
+        series = series + subs/factorial * Pow(symbol-point,i);
+        factorial *= (i+1);
+    }
+
+    return Algebraic.Expand(series);
+}
+```
+
+Now that we’ve written the code to generate a Taylor series, let’s generate one for the function `sin(x) + cos(x)`. We’ll use 4 terms, and approximate the value of the function at `x = 0`.
+
+```csharp
+var x = symbol("x");
+var taylor = Taylor(4, x, 0, sin(x)+cos(x));
+```
+
+Now that we have an approximation for the value, let’s see how it compares to the real thing.
+
+```csharp
+var originalFunction = Math.Sin(0) + Math.Cos(0);
+var symbols = new Dictionary<string, FloatingPoint> {
+    ["x"] = 0
+};
+var approximation = Evaluate.Evaluate(symbols, taylor).RealValue;
+
+Console.WriteLine($"The approximate value of sin(x) + cos(x) when x = 0 is: {approximation}.");
+Console.WriteLine($"The actual value of sin(x) + cos(x) when x = 0 is: {originalFunction}.");   
+```

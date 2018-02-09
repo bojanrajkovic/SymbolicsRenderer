@@ -48,7 +48,7 @@ document.getElementsByTagName("head")[0].appendChild(mathjaxConfig);
 // Actually load up MathJax
 var script = document.createElement("script");
 script.type = "text/javascript";
-script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML";
+script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full";
 document.getElementsByTagName("head")[0].appendChild(script);
 
 // Register our simple renderer.
