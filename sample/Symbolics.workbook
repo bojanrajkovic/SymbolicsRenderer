@@ -1,0 +1,29 @@
+---
+uti: com.xamarin.workbook
+id: 6128b17c-b508-462e-91f5-4b2fc37b8e55
+title: Symbolics
+platforms:
+- Console
+packages:
+- id: MathNet.Symbolics
+  version: 0.18.1
+- id: CodeRinseRepeat.SymbolicsRenderer
+  version: 0.1.0
+---
+
+```csharp
+#r "MathNet.Symbolics"
+```
+
+```csharp
+using static MathNet.Symbolics.Operators;
+using static MathNet.Symbolics.Expression;
+```
+
+```csharp
+symbol("x")*2
+```
+
+```csharp
+symbol("x")*symbol("x")
+```

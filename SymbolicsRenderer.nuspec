@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+      <id>CodeRinseRepeat.SymbolicsRenderer</id>
+      <version>$version$</version>
+      <authors>Bojan Rajkovic</authors>
+      <projectUrl>https://github.com/bojanrajkovic/SymbolicsRenderer</projectUrl>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+      <description>
+        Provides a Xamarin Workbooks integartion that adds beautiful rendering for
+        MathNet.Symbolics expressions via MathJax.
+      </description>
+      <tags>mathnet xamarin workbooks</tags>
+    </metadata>
+    <files>
+      <file src="src\SymbolicsRenderer\bin\Debug\netstandard2.0\SymbolicsRenderer.dll" target="xamarin.interactive" />
+      <file src="src\SymbolicsRenderer\bin\Debug\netstandard2.0\SymbolicsRenderer.js" target="xamarin.interactive" />
+    </files>
+</package>
